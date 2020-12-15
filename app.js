@@ -83,6 +83,44 @@ app.post("/registeruser", (req, res) => {
 });
 /*----------------END-----Register User API------END-------------------*/
 
+/*-----------------------------Login API-------------------------------*/
+app.post("/login", async function (req, res) {
+
+    if (req.body.username == "") {
+        res.json({
+            message: "Username is empty"
+        });
+    } else if (req.body.password == "") {
+        res.json({
+            message: "password is empty"
+        });
+    } else {
+        try {
+            const user = await User.checkCrediantialsDb(req.body.username, req.body.password);
+            var user_type = user.user_type;
+            var id = user._id;
+            var username = user.username;
+            if (user) {
+                const token = await user.generateAuthToken();
+                res.send({
+                    token,
+                    user_type,
+                    id,
+                    username
+                });
+
+            } else {
+                res.json({
+                    message: "User not found"
+                });
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+});
+/*-------------------END-----Login API----END---------------------------*/
 
 app.listen(PORT, function(err){ 
     if (err) console.log("Error in server setup") 
