@@ -1,0 +1,33 @@
+{
+  "name": "bright-future-e-learning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jest": "^26.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.8",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.6"
+  },
+  "devDependencies": {
+    "supertest": "^6.0.1"
+  },
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "jest --watchAll --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sthaAbilov/Bright-future-E-learning.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sthaAbilov/Bright-future-E-learning/issues"
+  },
+  "homepage": "https://github.com/sthaAbilov/Bright-future-E-learning#readme"
+}
