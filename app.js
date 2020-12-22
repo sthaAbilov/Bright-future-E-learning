@@ -2,6 +2,7 @@ require ('./db/db');
 const User = require('./models/user');
 
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
@@ -9,6 +10,7 @@ const path = require('path');
 const app = express();
 var PORT = 8080; 
 app.use(express.json());
+app.use(cors());
 
 
 app.use('/uploads', express.static('./public/uploads'));
