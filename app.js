@@ -125,6 +125,18 @@ app.post("/login", async function (req, res) {
 /*-------------------END-----Login API----END---------------------------*/
 
 
+/*-------------------------------Logout User All Devices API-----------------------------*/
+app.post('/users/logoutAll', auth, async (req, res) => {
+    try {
+        req.user.tokens = []
+        await req.user.save()
+        res.send()
+    } catch (e) {
+        res.status(500).send()
+    }
+});
+/*---------------------END-------Logout User All Devices API------END---------------------*/
+
 /*--------------------------------Post Comment API----------------------------------------*/
 app.post('/comment', auth, function (req, res) {
     var date = new Date();
