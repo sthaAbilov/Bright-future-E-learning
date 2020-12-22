@@ -124,6 +124,70 @@ app.post("/login", async function (req, res) {
 });
 /*-------------------END-----Login API----END---------------------------*/
 
+
+/*-------------------------------Logout User All Devices API-----------------------------*/
+app.post('/users/logoutAll', auth, async (req, res) => {
+    try {
+        req.user.tokens = []
+        await req.user.save()
+        res.send()
+    } catch (e) {
+        res.status(500).send()
+    }
+});
+/*---------------------END-------Logout User All Devices API------END---------------------*/
+
+/*--------------------------------Post Comment API----------------------------------------*/
+app.post('/comment', auth, function (req, res) {
+    var date = new Date();
+    data = {
+        'listingId': req.body.listingId,
+        'comment': req.body.comment,
+        'Userid': req.user._id,
+        'date': date
+    }
+
+    var comment = new Comment(data);
+    comment.save().then(function () {
+        res.send({
+            message: "Succesfull"
+        })
+    });
+});
+/*---------------------------END--------Post Comment API-------END-----------------------*/
+
+
+
+/*----------------------------------Get Comment Data API----------------------------------*/
+app.get('/getcommentdata/:id', auth, function (req, res) {
+    listingId = req.params.id.toString();
+    console.log(listingId)
+    Comment.find({
+            listingId: listingId
+        })
+        .populate('Userid')
+        .exec()
+        .then(function (docs) {
+
+            if (docs) {
+                res.json({
+                    orders: docs.map(doc => {
+                        return {
+                            _id: doc._id,
+                            listingId: doc.listingId,
+                            comment: doc.comment,
+                            date: doc.date,
+                            Userid: doc.Userid
+                        };
+                    })
+                })
+
+            }
+
+        })
+})
+/*----------------------------END------Get Comment Data API-------END---------------------*/
+
 app.listen(PORT, function(err){ 
     if (err) console.log("Error in server setup") 
     console.log("App is running at localhost", PORT); 
