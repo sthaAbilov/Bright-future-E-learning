@@ -124,6 +124,21 @@ app.post("/login", async function (req, res) {
 });
 /*-------------------END-----Login API----END---------------------------*/
 
+
+/*--------------------------------Update User Detail API-----------------------------*/
+app.put('/updateUser/:id', auth, function (req, res) {
+    user_id = req.params.id.toString();
+
+    User.findByIdAndUpdate(user_id, req.body, {
+        new: true
+    }).then(function (user) {
+        res.send(user);
+    }).catch(function (e) {
+        res.send(e);
+    });
+});
+/*-------------------END-------Update User Detail API------END------------------------*/
+
 app.listen(PORT, function(err){ 
     if (err) console.log("Error in server setup") 
     console.log("App is running at localhost", PORT); 
