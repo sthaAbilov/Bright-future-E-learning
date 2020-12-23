@@ -126,6 +126,7 @@ app.post("/login", async function (req, res) {
 /*-------------------END-----Login API----END---------------------------*/
 
 
+<<<<<<< HEAD
 /*-------------------------------Logout User All Devices API-----------------------------*/
 app.post('/users/logoutAll', auth, async (req, res) => {
     try {
@@ -160,41 +161,21 @@ app.post('/comment', auth, function (req, res) {
         res.send({
             message: "Succesfull"
         })
+=======
+/*--------------------------------Update User Detail API-----------------------------*/
+app.put('/updateUser/:id', auth, function (req, res) {
+    user_id = req.params.id.toString();
+
+    User.findByIdAndUpdate(user_id, req.body, {
+        new: true
+    }).then(function (user) {
+        res.send(user);
+    }).catch(function (e) {
+        res.send(e);
+>>>>>>> d75fbdd7b18dad6c40525716f15f373506e0f8f3
     });
 });
-/*---------------------------END--------Post Comment API-------END-----------------------*/
-
-
-
-/*----------------------------------Get Comment Data API----------------------------------*/
-app.get('/getcommentdata/:id', auth, function (req, res) {
-    listingId = req.params.id.toString();
-    console.log(listingId)
-    Comment.find({
-            listingId: listingId
-        })
-        .populate('Userid')
-        .exec()
-        .then(function (docs) {
-
-            if (docs) {
-                res.json({
-                    orders: docs.map(doc => {
-                        return {
-                            _id: doc._id,
-                            listingId: doc.listingId,
-                            comment: doc.comment,
-                            date: doc.date,
-                            Userid: doc.Userid
-                        };
-                    })
-                })
-
-            }
-
-        })
-})
-/*----------------------------END------Get Comment Data API-------END---------------------*/
+/*-------------------END-------Update User Detail API------END------------------------*/
 
 app.listen(PORT, function(err){ 
     if (err) console.log("Error in server setup") 
