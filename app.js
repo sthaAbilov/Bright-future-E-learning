@@ -126,7 +126,7 @@ app.post("/login", async function (req, res) {
 /*-------------------END-----Login API----END---------------------------*/
 
 
-<<<<<<< HEAD
+
 /*-------------------------------Logout User All Devices API-----------------------------*/
 app.post('/users/logoutAll', auth, async (req, res) => {
     try {
@@ -161,7 +161,10 @@ app.post('/comment', auth, function (req, res) {
         res.send({
             message: "Succesfull"
         })
-=======
+    });
+});
+/*---------------------------END--------Post Comment API-------END-----------------------*/
+
 /*--------------------------------Update User Detail API-----------------------------*/
 app.put('/updateUser/:id', auth, function (req, res) {
     user_id = req.params.id.toString();
@@ -172,7 +175,6 @@ app.put('/updateUser/:id', auth, function (req, res) {
         res.send(user);
     }).catch(function (e) {
         res.send(e);
->>>>>>> d75fbdd7b18dad6c40525716f15f373506e0f8f3
     });
 });
 /*-------------------END-------Update User Detail API------END------------------------*/
@@ -180,4 +182,4 @@ app.put('/updateUser/:id', auth, function (req, res) {
 app.listen(PORT, function(err){ 
     if (err) console.log("Error in server setup") 
     console.log("App is running at localhost", PORT); 
-}) 
+})
