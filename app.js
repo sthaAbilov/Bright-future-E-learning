@@ -139,6 +139,18 @@ app.put('/updateUser/:id', auth, function (req, res) {
 });
 /*-------------------END-------Update User Detail API------END------------------------*/
 
+/*---------------------------Delete User API----------------------------*/
+app.delete('/deleteUser/:id', auth, function (req, res) {
+    Listing.findByIdAndDelete(req.params.id).then(function (listing) {
+        res.json({
+            message: "Deleted Successfully"
+        })
+    }).catch(function () {
+        res.send(e);
+    });
+});
+/*------------------END------Delete  User API-----END---------------------*/
+
 app.listen(PORT, function(err){ 
     if (err) console.log("Error in server setup") 
     console.log("App is running at localhost", PORT); 
