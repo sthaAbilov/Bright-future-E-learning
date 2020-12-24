@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const auth = require('./middleware/auth');
 const path = require('path');
 
 const app = express();
@@ -125,6 +126,45 @@ app.post("/login", async function (req, res) {
 /*-------------------END-----Login API----END---------------------------*/
 
 
+
+/*-------------------------------Logout User All Devices API-----------------------------*/
+app.post('/users/logoutAll', auth, async (req, res) => {
+    try {
+        req.user.tokens = []
+        await req.user.save()
+        res.send()
+    } catch (e) {
+        res.status(500).send()
+    }
+});
+/*---------------------END-------Logout User All Devices API------END---------------------*/
+
+/*-----------------------User/me or Dashboard API--------------------------*/
+app.get('/dashboard', auth, function (req, res) {
+    console.log("We are here")
+    res.send(req.user);
+});
+/*----------------------END---- Dashboard API-----END----------------------*/
+
+/*--------------------------------Post Comment API----------------------------------------*/
+app.post('/comment', auth, function (req, res) {
+    var date = new Date();
+    data = {
+        'listingId': req.body.listingId,
+        'comment': req.body.comment,
+        'Userid': req.user._id,
+        'date': date
+    }
+
+    var comment = new Comment(data);
+    comment.save().then(function () {
+        res.send({
+            message: "Succesfull"
+        })
+    });
+});
+/*---------------------------END--------Post Comment API-------END-----------------------*/
+
 /*--------------------------------Update User Detail API-----------------------------*/
 app.put('/updateUser/:id', auth, function (req, res) {
     user_id = req.params.id.toString();
@@ -154,4 +194,4 @@ app.delete('/deleteUser/:id', auth, function (req, res) {
 app.listen(PORT, function(err){ 
     if (err) console.log("Error in server setup") 
     console.log("App is running at localhost", PORT); 
-}) 
+})
