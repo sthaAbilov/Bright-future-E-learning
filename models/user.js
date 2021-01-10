@@ -39,13 +39,17 @@ const userSchema = new mongoose.Schema({
     user_type:{
         type: String
     },
+    user_role:{
+        type: Number,
+        default:20
+    },
     tokens: [{
         token: {
             type: String,
             required: true
         }
     }]
-});
+},{timestamps: true});
 
 userSchema.statics.checkCrediantialsDb = async (username, password) => {
 
