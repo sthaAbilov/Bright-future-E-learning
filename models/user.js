@@ -39,9 +39,8 @@ const userSchema = new mongoose.Schema({
     user_type:{
         type: String
     },
-    user_role:{
+    user_code:{
         type: Number,
-        default:20
     },
     tokens: [{
         token: {

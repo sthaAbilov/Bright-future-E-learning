@@ -1,6 +1,7 @@
 require ('./db/db');
 const User = require('./models/user');
 const Listing = require('./models/listing');
+const Course = require('./models/course');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -286,6 +287,59 @@ app.delete('/deleteUser/:id', auth, function (req, res) {
     });
 });
 /*------------------END------Delete  User API-----END---------------------*/
+/*--------Add Course list----------*/
+app.post("/addCourse", auth, (req, res) => {
+
+    var courses = new Course(req.body);
+    courses.save().then(function (courses) {
+        res.status(201).json({
+            message: "course Added Successfully"
+        })
+    }).catch(function () {
+        res.send(e);
+    });
+
+});
+/*------End of Course list */
+/*--------------------Get Course List-------------------------*/
+app.get('/getCourse', function (req, res) {
+    Course.find()
+        .then(function (course) {
+            res.send(course);
+        }).catch(function (e) {
+            res.send(e);
+        });
+});
+/*--------------------END-----Get Course List------END-------------------*/
+/*---------------- user verification for module access---*/
+app.get('/getCourse/:id', function(req, res){
+    Course.findById(req.params.id)
+        .then(function (course) {
+            loginId = req.headers.loginid;
+            users_ids = req.body.users_ids;
+            //courseName = req.body.course_name;
+
+            User.findById(loginId).then(function(user){
+                userId = (user) ? user.user_code : '';
+                userType = (user) ? user.user_type : '';
+
+                if(userType =="user" && userId && users_ids.indexOf(userId) !== -1){
+                    Listing.find({course_name: "php"}).then(function(courseDetail){
+                        res.send(courseDetail);
+                    });
+                }else{
+                    res.status(404).json({
+                        message: "can not access course"
+                    });
+                }
+
+            });
+    }).catch(function (e) {
+        res.send(e);
+    });
+
+});
+/*---------------- End verification----------- */
 
 app.listen(PORT, function(err){ 
     if (err) console.log("Error in server setup") 
