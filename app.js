@@ -304,6 +304,21 @@ app.post('/comment', auth, function (req, res) {
 });
 /*---------------------------END--------Post Comment API-------END-----------------------*/
 
+/*----------------------------Get User Detail By username API------------------------*/
+app.get('/fetchuser/:id', function (req, res) {
+    var username = req.params.id.toString();
+
+    User.find({
+        username: username
+    }).then(function (user) {
+        res.send(user);
+
+    }).catch(function (e) {
+        res.send(e);
+    });
+});
+/*--------------------END------Get User Detail By username API-------END--------------*/
+
 /*--------------------------------Update User Detail API-----------------------------*/
 app.put('/updateUser/:id', auth, function (req, res) {
     user_id = req.params.id.toString();
