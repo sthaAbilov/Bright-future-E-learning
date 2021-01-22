@@ -229,6 +229,22 @@ app.get('/dashboard', auth, function (req, res) {
 /*----------------------END---- Dashboard API-----END----------------------*/
 
 
+/*---------------------Get Single Listings by ID  API-----------------------*/
+app.get('/fetchOne/:id', function (req, res) {
+    var listingsID = req.params.id.toString();
+
+    Listing.find({
+        _id: listingsID
+    }).then(function (listing) {
+        res.send(listing);
+
+    }).catch(function (e) {
+        res.send(e);
+    });
+});
+/*----------------END-----Get Single Listings by ID  API-----END------------*/
+
+
 /*---------------------------Delete course By User API----------------------------*/
 app.delete('/deleteListing/:id', auth, function (req, res) {
     Listing.findByIdAndDelete(req.params.id).then(function (listing) {
