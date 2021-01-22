@@ -229,6 +229,19 @@ app.get('/dashboard', auth, function (req, res) {
 /*----------------------END---- Dashboard API-----END----------------------*/
 
 
+/*---------------------------Delete course By User API----------------------------*/
+app.delete('/deleteListing/:id', auth, function (req, res) {
+    Listing.findByIdAndDelete(req.params.id).then(function (listing) {
+        res.json({
+            message: "Deleted Successfully"
+        })
+    }).catch(function () {
+        res.send(e);
+    });
+});
+/*------------------END------Delete Listings By User API-----END---------------------*/
+
+
 /*--------------------Get Listings (for user) API-------------------------*/
 app.get('/getListings', function (req, res) {
     Listing.find({
