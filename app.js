@@ -244,6 +244,20 @@ app.get('/fetchOne/:id', function (req, res) {
 });
 /*----------------END-----Get Single Listings by ID  API-----END------------*/
 
+/*---------------------Update Listings by ID  API----------------------------*/
+app.put('/updateListing/:id', auth, function (req, res) {
+    listingId = req.params.id.toString();
+
+    Listing.findByIdAndUpdate(listingId, req.body, {
+        new: true
+    }).then(function (listing) {
+        res.send(listing);
+    }).catch(function (e) {
+        res.send(e);
+    });
+});
+/*----------------END-----Update Listings by ID  API-------END----------------*/
+
 
 /*---------------------------Delete course By User API----------------------------*/
 app.delete('/deleteListing/:id', auth, function (req, res) {
