@@ -244,6 +244,23 @@ app.get('/fetchOne/:id', function (req, res) {
 });
 /*----------------END-----Get Single Listings by ID  API-----END------------*/
 
+/*---------------------Get Single Listings by USER  API------------------------*/
+app.get('/fetchlisting/:id', function (req, res) {
+    var userID = req.params.id.toString();
+
+    Listing.find({
+        userId: userID
+    }).then(function (listing) {
+        res.send(listing);
+
+    }).catch(function (e) {
+        res.send(e);
+    });
+
+});
+/*----------------END-----Get Single Listings by USER  API-------END------------*/
+
+
 /*---------------------Update Listings by ID  API----------------------------*/
 app.put('/updateListing/:id', auth, function (req, res) {
     listingId = req.params.id.toString();
