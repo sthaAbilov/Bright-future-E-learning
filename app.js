@@ -261,6 +261,21 @@ app.get('/fetchlisting/:id', function (req, res) {
 /*----------------END-----Get Single Listings by USER  API-------END------------*/
 
 
+/*-------------------------------Get User Detail By ID API---------------------------*/
+app.get('/getUser/:id', function (req, res) {
+    var id = req.params.id.toString();
+
+    User.find({
+        _id: id
+    }).then(function (user) {
+        res.send(user);
+
+    }).catch(function (e) {
+        res.send(e);
+    });
+});
+/*-----------------------END------Get User Detail By ID API------END------------------*/
+
 /*---------------------Update Listings by ID  API----------------------------*/
 app.put('/updateListing/:id', auth, function (req, res) {
     listingId = req.params.id.toString();
