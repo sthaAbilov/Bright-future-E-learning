@@ -336,6 +336,24 @@ app.post('/comment', auth, function (req, res) {
 });
 /*---------------------------END--------Post Comment API-------END-----------------------*/
 
+/*-----------------------------Update Comment Data API------------------------------------*/
+app.put('/updatecommentdata/:id', auth, function (req, res) {
+
+    cid = req.params.id.toString();
+    Comment.findByIdAndUpdate(cid, {
+        comment: req.body.comment
+    }, {
+        new: true
+    }, (err, user) => {
+        res.send({
+            message: "succesfull"
+        });
+
+    })
+})
+/*-------------------------END------Update Comment Data API------END---------------------*/
+
+
 /*------------------------------Delete Comment Data API--------------------------------*/
 app.delete('/deletecommentdata/:id', auth, function (req, res) {
     uid = req.params.id.toString();
