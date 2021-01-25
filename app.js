@@ -336,6 +336,18 @@ app.post('/comment', auth, function (req, res) {
 });
 /*---------------------------END--------Post Comment API-------END-----------------------*/
 
+/*------------------------------Delete Comment Data API--------------------------------*/
+app.delete('/deletecommentdata/:id', auth, function (req, res) {
+    uid = req.params.id.toString();
+    Comment.findByIdAndDelete(uid).then(function () {
+        res.send({
+            message: "succesfull"
+        })
+    })
+
+})
+/*-------------------------END------Delete Comment Data API-----END--------------------*/
+
 /*----------------------------Get User Detail By username API------------------------*/
 app.get('/fetchuser/:id', function (req, res) {
     var username = req.params.id.toString();
