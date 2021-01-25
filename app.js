@@ -439,6 +439,20 @@ app.get('/getcommentdata/:id', auth, function (req, res) {
 /*----------------------------END------Get Comment Data API-------END---------------------*/
 
 
+/*--------------------------------Feedback API-----------------------------------------*/
+app.post("/feedback", (req, res) => {
+
+    var feedback = new Feedback(req.body);
+    feedback.save().then(function (feedback) {
+        res.status(201).json({
+            message: "Your feedback is sucessfully passed"
+        })
+    }).catch(function () {
+        res.send(e);
+    });
+
+});
+/*-------------------------END------Feedback API------END------------------------------*/
 
 
 
