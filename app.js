@@ -438,6 +438,20 @@ app.get('/getcommentdata/:id', auth, function (req, res) {
 })
 /*----------------------------END------Get Comment Data API-------END---------------------*/
 
+/*-------------------------------Get Single Comment Data API------------------------------*/
+app.get('/getSingleComment/:id', function (req, res) {
+    var comment_id = req.params.id.toString();
+    console.log(comment_id);
+    Comment.find({
+        _id: comment_id
+    }).then(function (comment) {
+        res.send(comment);
+
+    }).catch(function (e) {
+        res.send(e);
+    });
+});
+/*-----------------------END------Get Single Comment Data API------END--------------------*/
 
 
 
