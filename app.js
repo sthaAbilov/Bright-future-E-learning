@@ -260,7 +260,7 @@ app.get('/fetchlisting/:id', function (req, res) {
 });
 /*----------------END-----Get Single Listings by USER  API-------END------------*/
 
-/*--------------------------Count course by USER  API--------------------------*/
+/*--------------------------Count  by USER  API--------------------------*/
 app.get('/countList/:id', function (req, res) {
     var userID = req.params.id.toString();
 
@@ -274,6 +274,29 @@ app.get('/countList/:id', function (req, res) {
     });
 });
 /*----------------------END----Count Listings by USER  API----END-----------------*/
+
+/*---------------------------------Search course API---------------------------------*/
+app.post('/search', function (req, res) {
+    var city = req.body.city;
+    var price = req.body.price;
+    var food_type = req.body.food_type;
+
+    Listing.find({
+        'city': new RegExp(city, 'i'),
+        'booking_status': false,
+        'approved_status': "",
+        'price': new RegExp(price, 'i'),
+        'food_type': new RegExp(food_type, 'i')
+
+    }).then(function (listing) {
+        res.send(listing);
+
+    }).catch(function (e) {
+        res.send(e);
+    });
+});
+/*------------------------END--------Search Listings API------END-----------------------*/
+
 
 
 /*-------------------------------Get User Detail By ID API---------------------------*/
