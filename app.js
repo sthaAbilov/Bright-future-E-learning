@@ -260,6 +260,21 @@ app.get('/fetchlisting/:id', function (req, res) {
 });
 /*----------------END-----Get Single Listings by USER  API-------END------------*/
 
+/*--------------------------Count course by USER  API--------------------------*/
+app.get('/countList/:id', function (req, res) {
+    var userID = req.params.id.toString();
+
+    Listing.find({
+        userId: userID
+    }).count(function (err, count) {
+
+        res.json({
+            count
+        });
+    });
+});
+/*----------------------END----Count Listings by USER  API----END-----------------*/
+
 
 /*-------------------------------Get User Detail By ID API---------------------------*/
 app.get('/getUser/:id', function (req, res) {
