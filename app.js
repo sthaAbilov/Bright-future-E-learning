@@ -275,6 +275,23 @@ app.get('/countList/:id', function (req, res) {
 });
 /*----------------------END----Count Listings by USER  API----END-----------------*/
 
+/*----------------------------Booking Enquiries API--------------------------------*/
+app.get('/fetchunapproved/:id', function (req, res) {
+    var userID = req.params.id.toString();
+    var status = false;
+
+    Listing.find({
+        userId: userID,
+        approved_status: status
+    }).then(function (listing) {
+        res.send(listing);
+
+    }).catch(function (e) {
+        res.send(e);
+    });
+});
+/*------------------END------Booking Enquiries API-------END------------------------*/
+
 /*---------------------------------Search course API---------------------------------*/
 app.post('/search', function (req, res) {
     var city = req.body.city;
