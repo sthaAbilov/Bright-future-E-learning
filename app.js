@@ -260,6 +260,23 @@ app.get('/fetchlisting/:id', function (req, res) {
 });
 /*----------------END-----Get Single Listings by USER  API-------END------------*/
 
+
+/*----------------------Get Bookings of particular User API---------------------------*/
+app.get('/mybookings/:username', function (req, res) {
+    var username = req.params.username.toString();
+
+    Listing.find({
+        booked_by: username
+    }).then(function (listing) {
+        res.send(listing);
+
+    }).catch(function (e) {
+        res.send(e);
+    });
+});
+/*-----------------------END-------Get Bookings API------END--------------------------*/
+
+
 /*--------------------------Count  by USER  API--------------------------*/
 app.get('/countList/:id', function (req, res) {
     var userID = req.params.id.toString();
