@@ -362,6 +362,22 @@ app.put('/updateListing/:id', auth, function (req, res) {
 });
 /*----------------END-----Update Listings by ID  API-------END----------------*/
 
+/*-----------------------Count Booking Enquiries API--------------------------------*/
+app.get('/countEnquiries/:id', function (req, res) {
+    var userID = req.params.id.toString();
+    var status = false;
+
+    Listing.find({
+        userId: userID,
+        approved_status: status
+    }).count(function (err, count) {
+
+        res.json({
+            count
+        });
+    });
+});
+/*----------------------END----Count Booking Enquiries API------END------------------*/
 
 /*---------------------------Delete course By User API----------------------------*/
 app.delete('/deleteListing/:id', auth, function (req, res) {
