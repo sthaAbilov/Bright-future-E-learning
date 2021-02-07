@@ -2,22 +2,25 @@ const mongoose = require('mongoose');
 
 
 const listingSchema = new mongoose.Schema({
-    course_name: {
+    place_name: {
         type: String
     },
-    type: {
+    city: {
         type: String
     },
-    video_name: {
+    streetName: {
         type: String
     },
     price: {
         type: String
     },
-    file_name: {
-        type: String
+    no_of_rooms: {
+        type: Number
     },
-    details: {
+    no_of_persons: {
+        type: Number
+    },
+    food_type: {
         type: String
     },
     facilities: {

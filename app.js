@@ -1,6 +1,8 @@
 require ('./db/db');
+const Comment = require('./models/comment');
 const User = require('./models/user');
 const Listing = require('./models/listing');
+const Feedback = require('./models/feedback');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -209,6 +211,14 @@ app.post("/addListings", auth, (req, res) => {
 });
 /*-------------------END-------Add Listing API------END-------------------*/
 
+
+/*-----------------------User/me or Dashboard API--------------------------*/
+app.get('/dashboard', auth, function (req, res) {
+    console.log("We are here")
+    res.send(req.user);
+});
+/*----------------------END---- Dashboard API-----END----------------------*/
+
 /*-------------------------------Logout User All Devices API-----------------------------*/
 app.post('/users/logoutAll', auth, async (req, res) => {
     try {
@@ -220,13 +230,6 @@ app.post('/users/logoutAll', auth, async (req, res) => {
     }
 });
 /*---------------------END-------Logout User All Devices API------END---------------------*/
-
-/*-----------------------User/me or Dashboard API--------------------------*/
-app.get('/dashboard', auth, function (req, res) {
-    console.log("We are here")
-    res.send(req.user);
-});
-/*----------------------END---- Dashboard API-----END----------------------*/
 
 
 /*---------------------Get Single Listings by ID  API-----------------------*/
