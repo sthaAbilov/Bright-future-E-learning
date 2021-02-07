@@ -219,6 +219,21 @@ app.get('/dashboard', auth, function (req, res) {
 });
 /*----------------------END---- Dashboard API-----END----------------------*/
 
+/*--------------------------------Logout User API---------------------------------------*/
+app.post('/users/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+        await req.user.save()
+        res.send()
+    } catch (e) {
+        res.status(500).send()
+    }
+});
+/*---------------------------END------logout User API-----END---------------------------*/
+
+
 /*-------------------------------Logout User All Devices API-----------------------------*/
 app.post('/users/logoutAll', auth, async (req, res) => {
     try {
@@ -364,6 +379,23 @@ app.put('/updateListing/:id', auth, function (req, res) {
     });
 });
 /*----------------END-----Update Listings by ID  API-------END----------------*/
+
+/*----------------------------Booking Enquiries API--------------------------------*/
+app.get('/fetchunapproved/:id', function (req, res) {
+    var userID = req.params.id.toString();
+    var status = false;
+
+    Listing.find({
+        userId: userID,
+        approved_status: status
+    }).then(function (listing) {
+        res.send(listing);
+
+    }).catch(function (e) {
+        res.send(e);
+    });
+});
+/*------------------END------Booking Enquiries API-------END------------------------*/
 
 /*-----------------------Count Booking Enquiries API--------------------------------*/
 app.get('/countEnquiries/:id', function (req, res) {
